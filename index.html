@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PLI Santosh – Endowment Assurance Calculator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<div class="bar screen">
+  <div class="seg" role="group" aria-label="Design"><button type="button" data-model="a">Classic</button><button type="button" data-model="b">Modern</button></div>
+  <div class="seg" role="group" aria-label="Theme"><button type="button" data-theme="light">Light</button><button type="button" data-theme="dark">Dark</button></div>
+</div>
+<header class="screen">
+  <span class="tag">Postal Life Insurance · Santosh</span>
+  <h1>Endowment Assurance Calculator</h1>
+  <p class="sub">Estimate your monthly premium, bonus and maturity amount.</p>
+</header>
+
+<div class="layout screen">
+  <aside class="card side">
+    <div class="fld"><label for="age">Entry age (years)</label><input id="age" type="number" inputmode="numeric" value="24" min="19" max="55"><div class="hint">Allowed: 19 to 55</div></div>
+    <div class="fld"><label for="sa">Sum assured (Rs.)</label><input id="sa" type="number" inputmode="numeric" value="200000" min="20000" max="5000000" step="10000"><div class="hint" id="saw"></div></div>
+    <div class="fld"><label for="mat">Maturity age</label><select id="mat"></select></div>
+    <div class="two">
+      <div class="fld"><label for="br">Bonus (Rs. per 1000 / yr)</label><input id="br" type="number" inputmode="decimal" value="52" min="0" step="1"></div>
+      <div class="fld"><label for="gst">GST / tax %</label><input id="gst" type="number" inputmode="decimal" value="0" min="0" step="0.1"></div>
+    </div>
+    <div class="fld"><label for="reb">Rebate (Rs. per month)</label><input id="reb" type="number" inputmode="decimal" min="0" placeholder="Auto"><div class="hint">Leave blank for auto: Rs. 1 per Rs. 20,000 sum assured</div></div>
+    <div class="fld"><label for="date">Effective date</label><input id="date" type="date" value="2024-04-01"></div>
+    <div class="err" id="err" role="alert"></div>
+    <div class="btns"><button type="button" id="reset">Reset</button><button type="button" class="pri" onclick="window.print()">Print / PDF</button></div>
+  </aside>
+
+  <main id="out">
+    <div class="hero">
+      <div class="row">
+        <div><small>Net monthly premium</small><div class="big" id="net">–</div></div>
+        <span class="badge" id="basis">–</span>
+      </div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <h2>All maturity ages</h2>
+    <div class="card" style="padding:6px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch">
+      <table id="cmp"><thead><tr><th>Maturity age</th><th>Years</th><th>Premium</th><th>Rebate</th><th>Net / month</th><th>Yearly</th><th>Total to pay</th><th>Total bonus</th><th>Maturity amount</th></tr></thead><tbody></tbody></table>
+    </div>
+    <p class="hint" style="margin-top:8px">Tap or click a row to select that maturity age. On small screens, swipe sideways to see all columns.</p>
+  </main>
+</div>
+
+<div class="notes screen">
+  <p><b>How it works.</b> Annual bonus = sum assured ÷ 1000 × bonus rate. Total bonus = annual bonus × years. Maturity amount = sum assured + total bonus. Net premium = premium − rebate + tax.</p>
+  <p><b>Premium accuracy.</b> Rates for entry age 24 come from your quote and are exact. For other entry ages the premium is estimated by interpolating those rates by policy duration, so it can differ from the official PLI table. Check the official PLI premium table or your post office before buying.</p>
+  <p><b>Approx. return</b> is the annualised return on the premiums paid, ignoring the life cover and any tax benefit. Bonus rate shown is the commonly published Rs. 52 per Rs. 1000 for endowment; edit it if the declared rate changes. This is an estimate, not an official quote.</p>
+</div>
+
+<div id="print">
+  <h3>Endowment Assurance - Monthly Premium</h3>
+  <table class="d" id="pd"></table>
+  <h4>Premium Breakdown</h4>
+  <table><thead><tr><th>Maturity Age</th><th>Duration</th><th>Premium</th><th>Rebate</th><th>Tax</th><th>Net Premium</th><th>Yearly Premium</th><th>Total Payable</th><th>Total Bonus</th><th>Maturity Amount</th></tr></thead><tbody id="pt"></tbody></table>
+  <p id="pn"></p>
+</div>
+<div class="mbar screen"><div><small>Net / month</small><b id="mb1">–</b></div><div><small>Maturity amount</small><b id="mb2">–</b></div><button type="button" id="mgo">Results ↓</button></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
